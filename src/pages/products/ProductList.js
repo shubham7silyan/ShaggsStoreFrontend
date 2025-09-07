@@ -164,53 +164,53 @@ const ProductList = () => {
   ];
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f7f7f7' }}>
-      <div style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+    <div className="product-list-container">
+      <div className="product-list-wrapper">
         {/* Header */}
-        <div style={{ marginBottom: '2rem' }}>
-          <h1 style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '1rem' }}>
+        <div className="product-list-header">
+          <h1 className="product-list-title">
             {filters.category ? `${filters.category} Products` : 'All Products'}
           </h1>
           
           {/* Search Bar */}
-          <form onSubmit={handleSearchSubmit} style={{ marginBottom: '1.5rem' }}>
-            <div style={{ position: 'relative', maxWidth: '300px' }}>
+          <form onSubmit={handleSearchSubmit} className="search-form">
+            <div className="search-input-wrapper">
               <input
                 type="text"
                 placeholder="Search products..."
                 value={filters.search}
                 onChange={(e) => handleFilterChange('search', e.target.value)}
-                style={{ width: '100%', padding: '1rem', paddingLeft: '2.5rem', border: '1px solid #ccc', borderRadius: '0.5rem', fontSize: '1rem' }}
+                className="search-input"
               />
-              <FaSearch style={{ position: 'absolute', top: '50%', left: '1rem', transform: 'translateY(-50%)', color: '#ccc' }} />
+              <FaSearch className="search-icon" />
             </div>
           </form>
 
           {/* Filter and Sort Controls */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div className="controls-wrapper">
+            <div className="filter-controls">
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', border: '1px solid #ccc', borderRadius: '0.5rem', fontSize: '1rem', cursor: 'pointer' }}
+                className="filter-btn"
               >
-                <FaFilter style={{ fontSize: '1.5rem' }} />
-                Filters
+                <FaFilter />
+                <span className="filter-btn-text">Filters</span>
               </button>
               
               {(filters.category || filters.minPrice || filters.maxPrice || filters.featured) && (
                 <button
                   onClick={clearFilters}
-                  style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem 1rem', border: '1px solid #ccc', borderRadius: '0.5rem', fontSize: '1rem', cursor: 'pointer', color: '#ff0000' }}
+                  className="clear-filters-btn"
                 >
-                  <FaTimes style={{ fontSize: '1.5rem' }} />
-                  Clear Filters
+                  <FaTimes />
+                  <span className="clear-btn-text">Clear</span>
                 </button>
               )}
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <span style={{ fontSize: '1rem', color: '#666' }}>
-                {totalProducts} products found
+            <div className="sort-controls">
+              <span className="products-count">
+                {totalProducts} products
               </span>
               
               <select
@@ -220,7 +220,7 @@ const ProductList = () => {
                   handleFilterChange('sortBy', sortBy);
                   handleFilterChange('sortOrder', sortOrder);
                 }}
-                style={{ padding: '0.5rem 1rem', border: '1px solid #ccc', borderRadius: '0.5rem', fontSize: '1rem' }}
+                className="sort-select"
               >
                 {sortOptions.map(option => (
                   <option key={option.value} value={option.value}>
@@ -232,19 +232,19 @@ const ProductList = () => {
           </div>
         </div>
 
-        <div style={{ display: 'flex', gap: '2rem' }}>
+        <div className="content-wrapper">
           {/* Filters Sidebar */}
-          <div className={`filters-sidebar ${showFilters ? '' : 'hidden'}`} style={{ display: showFilters ? 'block' : 'none', width: '300px' }}>
-            <div style={{ padding: '2rem', backgroundColor: '#fff', borderRadius: '0.5rem', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>Filters</h3>
+          <div className={`filters-sidebar ${showFilters ? 'show' : 'hide'}`}>
+            <div className="filters-content">
+              <h3 className="filters-title">Filters</h3>
               
               {/* Category Filter */}
-              <div style={{ marginBottom: '1.5rem' }}>
-                <h4 style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Category</h4>
+              <div className="filter-group">
+                <h4 className="filter-label">Category</h4>
                 <select
                   value={filters.category}
                   onChange={(e) => handleFilterChange('category', e.target.value)}
-                  style={{ width: '100%', padding: '0.5rem 1rem', border: '1px solid #ccc', borderRadius: '0.5rem', fontSize: '1rem' }}
+                  className="filter-select"
                 >
                   <option value="">All Categories</option>
                   {categories.map(category => (
@@ -256,60 +256,61 @@ const ProductList = () => {
               </div>
 
               {/* Price Range Filter */}
-              <div style={{ marginBottom: '1.5rem' }}>
-                <h4 style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>Price Range</h4>
-                <div style={{ display: 'flex', gap: '1rem' }}>
+              <div className="filter-group">
+                <h4 className="filter-label">Price Range</h4>
+                <div className="price-inputs">
                   <input
                     type="number"
                     placeholder="Min"
                     value={filters.minPrice}
                     onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-                    style={{ width: '100%', padding: '0.5rem 1rem', border: '1px solid #ccc', borderRadius: '0.5rem', fontSize: '1rem' }}
+                    className="price-input"
                   />
                   <input
                     type="number"
                     placeholder="Max"
                     value={filters.maxPrice}
                     onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-                    style={{ width: '100%', padding: '0.5rem 1rem', border: '1px solid #ccc', borderRadius: '0.5rem', fontSize: '1rem' }}
+                    className="price-input"
                   />
                 </div>
               </div>
 
               {/* Featured Filter */}
-              <div style={{ marginBottom: '1.5rem' }}>
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div className="filter-group">
+                <label className="checkbox-label">
                   <input
                     type="checkbox"
                     checked={filters.featured === 'true'}
                     onChange={(e) => handleFilterChange('featured', e.target.checked ? 'true' : '')}
-                    style={{ marginRight: '0.5rem' }}
+                    className="checkbox-input"
                   />
-                  <span style={{ fontSize: '1rem' }}>Featured Products Only</span>
+                  <span>Featured Products Only</span>
                 </label>
               </div>
             </div>
           </div>
 
           {/* Products Grid */}
-          <div style={{ flex: 1 }}>
+          <div className="products-section">
             {loading ? (
-              <LoadingSpinner style={{ height: '20rem' }} />
+              <LoadingSpinner />
             ) : displayProducts.length === 0 ? (
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '20rem' }}>
-                <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>📦</div>
-                <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>No products found</h3>
-                <p style={{ fontSize: '1rem', color: '#666' }}>Try adjusting your search or filters</p>
+              <div className="no-products">
+                <div className="no-products-icon">📦</div>
+                <h3 className="no-products-title">No products found</h3>
+                <p className="no-products-text">Try adjusting your search or filters</p>
               </div>
             ) : (
               <>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem' }}>
+                <div className="products-grid">
                   {displayProducts.map((product, index) => (
                     <motion.div
                       key={product._id}
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: index * 0.1 }}
+                      className="product-item"
                     >
                       <ProductCard product={product} />
                     </motion.div>
@@ -318,12 +319,12 @@ const ProductList = () => {
 
                 {/* Pagination */}
                 {totalPages > 1 && (
-                  <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
-                    <nav style={{ display: 'flex', gap: '1rem' }}>
+                  <div className="pagination-wrapper">
+                    <nav className="pagination">
                       <button
                         onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                         disabled={currentPage === 1}
-                        style={{ padding: '0.5rem 1rem', border: '1px solid #ccc', borderRadius: '0.5rem', fontSize: '1rem', cursor: 'pointer' }}
+                        className="pagination-btn"
                       >
                         Previous
                       </button>
@@ -332,7 +333,7 @@ const ProductList = () => {
                         <button
                           key={page}
                           onClick={() => setCurrentPage(page)}
-                          style={{ padding: '0.5rem 1rem', border: '1px solid #ccc', borderRadius: '0.5rem', fontSize: '1rem', cursor: 'pointer', backgroundColor: currentPage === page ? '#007bff' : '#fff', color: currentPage === page ? '#fff' : '#333' }}
+                          className={`pagination-btn ${currentPage === page ? 'active' : ''}`}
                         >
                           {page}
                         </button>
@@ -341,7 +342,7 @@ const ProductList = () => {
                       <button
                         onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                         disabled={currentPage === totalPages}
-                        style={{ padding: '0.5rem 1rem', border: '1px solid #ccc', borderRadius: '0.5rem', fontSize: '1rem', cursor: 'pointer' }}
+                        className="pagination-btn"
                       >
                         Next
                       </button>
